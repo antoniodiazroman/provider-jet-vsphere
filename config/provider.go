@@ -23,12 +23,12 @@ import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	"github.com/antoniodiazroman/provider-jet-vsphere/config/vsphere_virtual_machine"
+	"github.com/crossplane-contrib/provider-jet-vsphere/config/vsphere_virtual_machine"
 )
 
 const (
 	resourcePrefix = "vsphere"
-	modulePath     = "github.com/antoniodiazroman/provider-jet-vsphere"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-vsphere"
 )
 
 //go:embed schema.json
