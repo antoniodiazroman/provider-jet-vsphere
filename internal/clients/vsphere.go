@@ -111,6 +111,13 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 
 		ps.Configuration = tfCfg
 
+		// ps.Configuration = map[string]interface{}{
+		// 	"user":                 vsphereCreds["user"],
+		// 	"password":             vsphereCreds["password"],
+		// 	"vsphere_server":       vsphereCreds["vsphere_server"],
+		// 	"allow_unverified_ssl": vsphereCreds["allow_unverified_ssl"],
+		// }
+
 		return ps, nil
 	}
 }
