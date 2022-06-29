@@ -43,13 +43,22 @@ const (
 	// https://registry.terraform.io/providers/hashicorp/vsphere/latest/docs#argument-reference
 	// https://github.com/4n3w/provider-jet-vsphere/blob/main/internal/clients/vsphere.go
 
-	keyUser               = "user"
-	keyPassword           = "password"
-	keyVsphereServer      = "vsphere_server"
-	keyAllowUnverifiedSSL = "allow_unverified_ssl"
-	keyVIMKeepAlive       = "vim_keep_alive"
-	keyAPITimeout         = "api_timeout"
+	// keyUser               = "user"
+	// keyPassword           = "password"
+	// keyVsphereServer      = "vsphere_server"
+	// keyAllowUnverifiedSSL = "allow_unverified_ssl"
+	// keyVIMKeepAlive       = "vim_keep_alive"
+	// keyAPITimeout         = "api_timeout"
 )
+
+type vSphereCredentials struct {
+	User               string `json:"user"`
+	Password           string `json:"password"`
+	VSphereServer      string `json:"vsphere_server"`
+	AllowUnverifiedSSL bool   `json:"allow_unverified_ssl"`
+	VIMKeepAlive       int    `json:"vim_keep_alive"`
+	APITimeout         int    `json:"api_timeout"`
+}
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
@@ -81,10 +90,10 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		vsphereCreds := map[string]string{}
-		if err := json.Unmarshal(data, &vsphereCreds); err != nil {
-			return ps, errors.Wrap(err, errUnmarshalCredentials)
-		}
+		// vsphereCreds := map[string]string{}
+		// if err := json.Unmarshal(data, &vsphereCreds); err != nil {
+		// 	return ps, errors.Wrap(err, errUnmarshalCredentials)
+		// }
 
 		// set environment variables for sensitive provider configuration
 		// Deprecated: In shared gRPC mode we do not support injecting
@@ -100,16 +109,16 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			"password": vsphereCreds["password"],
 		}*/
 
-		tfCfg := map[string]interface{}{}
+		// tfCfg := map[string]interface{}{}
 
-		tfCfg[keyUser] = vsphereCreds["user"]
-		tfCfg[keyPassword] = vsphereCreds["password"]
-		tfCfg[keyVsphereServer] = vsphereCreds["vsphere_server"]
-		tfCfg[keyAllowUnverifiedSSL] = vsphereCreds["vsphere_server"]
-		tfCfg[keyVIMKeepAlive] = vsphereCreds["vim_keep_alive"]
-		tfCfg[keyAPITimeout] = vsphereCreds["api_timeout"]
+		// tfCfg[keyUser] = vsphereCreds["user"]
+		// tfCfg[keyPassword] = vsphereCreds["password"]
+		// tfCfg[keyVsphereServer] = vsphereCreds["vsphere_server"]
+		// tfCfg[keyAllowUnverifiedSSL] = vsphereCreds["vsphere_server"]
+		// tfCfg[keyVIMKeepAlive] = vsphereCreds["vim_keep_alive"]
+		// tfCfg[keyAPITimeout] = vsphereCreds["api_timeout"]
 
-		ps.Configuration = tfCfg
+		// ps.Configuration = tfCfg
 
 		// ps.Configuration = map[string]interface{}{
 		// 	"user":                 vsphereCreds["user"],
@@ -117,6 +126,21 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		// 	"vsphere_server":       vsphereCreds["vsphere_server"],
 		// 	"allow_unverified_ssl": vsphereCreds["allow_unverified_ssl"],
 		// }
+
+		vsphereCreds := vSphereCredentials{}
+
+		if err := json.Unmarshal(data, &vsphereCreds); err != nil {
+			return ps, errors.Wrap(err, errUnmarshalCredentials)
+		}
+
+		ps.Configuration = map[string]interface{}{
+			"user":                 vsphereCreds.User,
+			"password":             vsphereCreds.Password,
+			"vsphere_server":       vsphereCreds.VSphereServer,
+			"allow_unverified_ssl": vsphereCreds.AllowUnverifiedSSL,
+			"vim_keep_alive":       vsphereCreds.VIMKeepAlive,
+			"api_timeout":          vsphereCreds.APITimeout,
+		}
 
 		return ps, nil
 	}

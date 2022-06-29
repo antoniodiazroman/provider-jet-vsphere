@@ -1,4 +1,4 @@
-package vsphere_virtual_machine
+package vspherevirtualmachine
 
 import "github.com/crossplane/terrajet/pkg/config"
 
@@ -8,6 +8,6 @@ func Configure(p *config.Provider) {
 
 		// we need to override the default group that terrajet generated for
 		// this resource, which would be "github"
-		r.ShortGroup = "vsphere_virtual_machine"
+		r.ShortGroup = "vspherevirtualmachine"
 	})
 }

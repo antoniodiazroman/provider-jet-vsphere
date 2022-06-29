@@ -23,7 +23,7 @@ import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	"github.com/crossplane-contrib/provider-jet-vsphere/config/vsphere_virtual_machine"
+	"github.com/crossplane-contrib/provider-jet-vsphere/config/vspherevirtualmachine"
 )
 
 const (
@@ -51,7 +51,7 @@ func GetProvider() *tjconfig.Provider {
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
-		vsphere_virtual_machine.Configure,
+		vspherevirtualmachine.Configure,
 	} {
 		configure(pc)
 	}

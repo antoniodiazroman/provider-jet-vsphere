@@ -22,7 +22,7 @@ import (
 	"github.com/crossplane/terrajet/pkg/controller"
 
 	providerconfig "github.com/crossplane-contrib/provider-jet-vsphere/internal/controller/providerconfig"
-	machine "github.com/crossplane-contrib/provider-jet-vsphere/internal/controller/vsphere_virtual_machine/machine"
+	machine "github.com/crossplane-contrib/provider-jet-vsphere/internal/controller/vspherevirtualmachine/machine"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to

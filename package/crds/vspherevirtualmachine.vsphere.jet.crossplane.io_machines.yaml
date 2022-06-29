@@ -4,10 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
-  name: machines.vsphere_virtual_machine.vsphere.jet.crossplane.io
+  name: machines.vspherevirtualmachine.vsphere.jet.crossplane.io
 spec:
-  group: vsphere_virtual_machine.vsphere.jet.crossplane.io
+  group: vspherevirtualmachine.vsphere.jet.crossplane.io
   names:
     categories:
     - crossplane
