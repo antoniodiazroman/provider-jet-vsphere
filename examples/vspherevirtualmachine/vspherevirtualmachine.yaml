@@ -4,13 +4,13 @@ metadata:
   name: hello-crossplane-vm
 spec:
   forProvider:
-    resourcePoolId: "myResourcePoolId"
-    datastoreId: "myDatastoreId"
+    resourcePoolId: "resgroup-16"
+    datastoreId: "datastore-11"
     numCpus: 2
     memory: 1024
     guestId: "other3xLinux64Guest"
     networkInterface:
-    - networkId: data.vsphere_network.network.id
+    - networkId: "network-12"
     disk:
     - label: "disk0"
       size: 20
